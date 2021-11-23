@@ -1,0 +1,91 @@
+local Flux = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/fluxlib.txt")()
+
+local win = Flux:Window("Flame LITE", game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name, Color3.fromRGB(255, 89, 89), Enum.KeyCode.RightControl)
+local tab = win:Tab("Humanoid", "http://www.roblox.com/asset/?id=6023426915")
+--tab:Button("Kill all", "This function may not work sometimes and you can get banned.", function()
+--Flux:Notification("Killed all players successfully!", "Alright")
+--end)
+--tab:Label("This is just a label.")
+--tab:Line()
+--tab:Toggle("Auto-Farm Coins", "Automatically collects coins for you!", function(t)
+--print(t)
+--end)
+local plr = game.Players.LocalPlayer
+local chr = plr.Character
+local hum = chr:FindFirstChild("Humanoid")
+
+tab:Slider("Walkspeed", "Increases walkspeed.", 16, 100,16,function(t)
+    while true do game:GetService("RunService").RenderStepped:wait()
+        hum.WalkSpeed = t
+    end
+end)
+tab:Slider("Jump Power", "Increases jump power.", 50, 200,50,function(t)
+    while true do game:GetService("RunService").RenderStepped:wait()
+        hum.JumpPower = t
+    end
+end)
+local tab2 = win:Tab("Farming", "https://www.roblox.com/asset/?id=0")
+local itemfarm = false
+tab2:Toggle("Item Farm", "Automatically collects items for you!", function(t)
+if t == true then
+    itemfarm = true
+while itemfarm == true do
+for i,v in pairs(game.Workspace:GetDescendants()) do
+if v.Name == "Meteor" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+wait(0.1)
+fireproximityprompt(v.ProximityAttachment.Interaction)
+elseif v.Name == "Chest" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.RootPart.CFrame
+wait(0.1)
+fireproximityprompt(v.RootPart.ProximityAttachment.Interaction)
+elseif v.Name == "SandDebris" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+wait(0.1)
+fireproximityprompt(v.ProximityAttachment.Interaction)
+elseif v:IsA("Tool") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Handle.CFrame
+end
+wait(0.15)
+end
+end
+else
+    itemfarm = false
+end
+end)
+
+local tab3 = win:Tab("Client", "http://www.roblox.com/asset/?id=0")
+
+local clienttsmovement = false
+tab:Toggle("TS Movement", "Allows you to move in TS on YOUR screen.", function(t)
+    if t == true then
+    clienttsmovement = true
+    while clienttsmovement == true do game:GetService("RunService").RenderStepped:wait()
+        for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+            if v:IsA("BasePart") then
+                v.Anchored = false
+            end
+        end
+    end
+    else
+        clienttsmovement = false
+    end
+end)
+
+--tab:Toggle("Auto-Farm Coins", "Automatically collects coins for you!", function(t)
+--print(t)
+--end)
+
+--tab:Dropdown("Part to aim at", {"Torso","Head","Penis"}, function(t)
+--print(t)
+--end)
+--tab:Colorpicker("ESP Color", Color3.fromRGB(255,1,1), function(t)
+--print(t)
+--end)
+--tab:Textbox("Gun Power", "This textbox changes your gun power, so you can kill everyone faster and easier.", true, function(t)
+--print(t)
+--end)
+--tab:Bind("Kill Bind", Enum.KeyCode.Q, function()
+--print("Killed a random person!")
+--end)
+--win:Tab("Tab 2", "http://www.roblox.com/asset/?id=6022668888")
