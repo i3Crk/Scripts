@@ -48,8 +48,8 @@ tab2:Toggle("Item Farm", "Automatically collects items for you!", false, functio
                     fireproximityprompt(v:FindFirstChild("ProximityAttachment"):FindFirstChild("Interaction"))
                     wait(0.2)
                 elseif v:IsA("Tool") then
-                    if not v:IsDescendantOf(workspace.Living) then
-                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Handle.CFrame
+                    if not v:IsDescendantOf(workspace:FindFirstChild("Living")) then
+                       hrp.CFrame = v:FindFirstChild("Handle").CFrame
                        wait(0.2)
                     end
                 end
