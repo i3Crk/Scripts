@@ -57,7 +57,7 @@ end)
 local tab3 = win:Tab("Client", "http://www.roblox.com/asset/?id=0")
 
 local clienttsmovement = false
-tab:Toggle("TS Movement", "Allows you to move in TS on YOUR screen.", function(t)
+tab3:Toggle("TS Movement", "Allows you to move in TS on YOUR screen.", function(t)
     if t == true then
     clienttsmovement = true
     while clienttsmovement == true do game:GetService("RunService").RenderStepped:wait()
