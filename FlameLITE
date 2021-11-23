@@ -13,6 +13,7 @@ local tab = win:Tab("Humanoid", "http://www.roblox.com/asset/?id=6023426915")
 local plr = game.Players.LocalPlayer
 local chr = plr.Character
 local hum = chr:FindFirstChild("Humanoid")
+local hrp = chr:FindFirstChild("HumanoidRootPart")
 
 tab:Slider("Walkspeed", "Increases walkspeed.", 16, 100,16,function(t)
     while true do game:GetService("RunService").RenderStepped:wait()
@@ -32,22 +33,22 @@ tab2:Toggle("Item Farm", "Automatically collects items for you!", function(t)
         while itemfarm == true do
             for i,v in pairs(game.Workspace:GetDescendants()) do
                 if v.Name == "Meteor" then
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    hrp.CFrame = v.CFrame
                     wait(0.2)
-                    fireproximityprompt(v.ProximityAttachment.Interaction)
+                    fireproximityprompt(v:FindFirstChild("ProximityAttachment"):FindFirstChild("Interaction"))
                     wait(0.2)
                 elseif v.Name == "Chest" then
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.RootPart.CFrame
+                    hrp.CFrame = v.RootPart.CFrame
                     wait(0.2)
-                    fireproximityprompt(v.RootPart.ProximityAttachment.Interaction)
+                    fireproximityprompt(v:FindFirstChild("RootPart"):FindFirstChild("ProximityAttachment"):FindFirstChild("Interaction"))
                     wait(0.2)
                 elseif v.Name == "SandDebris" then
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    hrp.CFrame = v.CFrame
                     wait(0.2)
-                    fireproximityprompt(v.ProximityAttachment.Interaction)
+                    fireproximityprompt(v:FindFirstChild("ProximityAttachment"):FindFirstChild("Interaction"))
                     wait(0.2)
                 elseif v:IsA("Tool") then
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Handle.CFrame
+                    hrp.CFrame = v:FindFirstChild("Handle").CFrame
                     wait(0.2)
                 end
                 wait(0.35)
