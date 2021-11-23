@@ -27,7 +27,7 @@ tab:Slider("Jump Power", "Increases jump power.", 50, 200,50,function(t)
 end)
 local tab2 = win:Tab("Farming", "https://www.roblox.com/asset/?id=6022668888")
 local itemfarm = false
-tab2:Toggle("Item Farm", "Automatically collects items for you!", function(t)
+tab2:Toggle("Item Farm", "Automatically collects items for you!", false, function(t)
     if t == true then
         itemfarm = true
         while itemfarm == true do
