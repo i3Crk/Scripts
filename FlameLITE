@@ -27,31 +27,35 @@ end)
 local tab2 = win:Tab("Farming", "https://www.roblox.com/asset/?id=6022668888")
 local itemfarm = false
 tab2:Toggle("Item Farm", "Automatically collects items for you!", function(t)
-if t == true then
-    itemfarm = true
-while itemfarm == true do
-for i,v in pairs(game.Workspace:GetDescendants()) do
-if v.Name == "Meteor" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
-wait(0.1)
-fireproximityprompt(v.ProximityAttachment.Interaction)
-elseif v.Name == "Chest" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.RootPart.CFrame
-wait(0.1)
-fireproximityprompt(v.RootPart.ProximityAttachment.Interaction)
-elseif v.Name == "SandDebris" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
-wait(0.1)
-fireproximityprompt(v.ProximityAttachment.Interaction)
-elseif v:IsA("Tool") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Handle.CFrame
-end
-wait(0.15)
-end
-end
-else
-    itemfarm = false
-end
+    if t == true then
+        itemfarm = true
+        while itemfarm == true do
+            for i,v in pairs(game.Workspace:GetDescendants()) do
+                if v.Name == "Meteor" then
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    wait(0.2)
+                    fireproximityprompt(v.ProximityAttachment.Interaction)
+                    wait(0.2)
+                elseif v.Name == "Chest" then
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.RootPart.CFrame
+                    wait(0.2)
+                    fireproximityprompt(v.RootPart.ProximityAttachment.Interaction)
+                    wait(0.2)
+                elseif v.Name == "SandDebris" then
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    wait(0.2)
+                    fireproximityprompt(v.ProximityAttachment.Interaction)
+                    wait(0.2)
+                elseif v:IsA("Tool") then
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Handle.CFrame
+                    wait(0.2)
+                end
+                wait(0.35)
+            end
+        end
+    else
+        itemfarm = false
+    end
 end)
 
 local tab3 = win:Tab("Client", "http://www.roblox.com/asset/?id=0")
