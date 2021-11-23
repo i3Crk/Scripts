@@ -1,6 +1,6 @@
 local Flux = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/fluxlib.txt")()
-
-local win = Flux:Window("Flame LITE", game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name, Color3.fromRGB(255, 89, 89), Enum.KeyCode.RightControl)
+_G.FlameBind = Enum.KeyCode.RightControl
+local win = Flux:Window("Flame LITE", game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name, Color3.fromRGB(255, 89, 89), _G.FlameBind)
 local tab = win:Tab("Humanoid", "http://www.roblox.com/asset/?id=6023426915")
 --tab:Button("Kill all", "This function may not work sometimes and you can get banned.", function()
 --Flux:Notification("Killed all players successfully!", "Alright")
@@ -26,35 +26,48 @@ tab:Slider("Jump Power", "Increases jump power.", 50, 200,50,function(t)
     end
 end)
 local tab2 = win:Tab("Farming", "https://www.roblox.com/asset/?id=6022668888")
+
+function findItems()
+for i,v in pairs(workspace:GetDescendants()) do
+    if v.Name == "Meteor" then
+        if not v then return end
+        hrp.CFrame = v.CFrame
+        wait(0.2)
+        if not v:FindFirstChild("ProximityAttachment") then return end
+        fireproximityprompt(v:FindFirstChild("ProximityAttachment"):FindFirstChild("Interaction"))
+        wait(0.2)
+    elseif v.Name == "Chest" then
+        if not v then return end
+        hrp.CFrame = v.RootPart.CFrame
+        wait(0.2)
+        if not v:FindFirstChild("RootPart"):FindFirstChild("ProximityAttachment") then return end
+        fireproximityprompt(v:FindFirstChild("RootPart"):FindFirstChild("ProximityAttachment"):FindFirstChild("Interaction"))
+        wait(0.2)
+    elseif v.Name == "SandDebris" then
+        if not v then return end
+        hrp.CFrame = v.CFrame
+        wait(0.2)
+        if not v:FindFirstChild("ProximityAttachment") then return end
+        fireproximityprompt(v:FindFirstChild("ProximityAttachment"):FindFirstChild("Interaction"))
+        wait(0.2)
+    elseif v:IsA("MeshPart") and v:IsDescendantOf(workspace.ItemSpawns) then
+        if not v then return end
+        hrp.CFrame = v.CFrame
+        wait(0.2)
+        if not v:FindFirstChild("ProximityAttachment") then return end
+        fireproximityprompt(v:FindFirstChild("ProximityAttachment"):FindFirstChild("Interaction"))
+        wait(0.2)
+    end
+end
+end
+
 local itemfarm = false
 tab2:Toggle("Item Farm", "Automatically collects items for you!", false, function(t)
     if t == true then
         itemfarm = true
         while itemfarm == true do
-            for i,v in pairs(game.Workspace:GetDescendants()) do
-                if v.Name == "Meteor" then
-                    hrp.CFrame = v.CFrame
-                    wait(0.2)
-                    fireproximityprompt(v:FindFirstChild("ProximityAttachment"):FindFirstChild("Interaction"))
-                    wait(0.2)
-                elseif v.Name == "Chest" then
-                    hrp.CFrame = v.RootPart.CFrame
-                    wait(0.2)
-                    fireproximityprompt(v:FindFirstChild("RootPart"):FindFirstChild("ProximityAttachment"):FindFirstChild("Interaction"))
-                    wait(0.2)
-                elseif v.Name == "SandDebris" then
-                    hrp.CFrame = v.CFrame
-                    wait(0.2)
-                    fireproximityprompt(v:FindFirstChild("ProximityAttachment"):FindFirstChild("Interaction"))
-                    wait(0.2)
-                elseif v:IsA("MeshPart") and v:IsDescendantOf(workspace.ItemSpawns) then
-                    hrp.CFrame = v.CFrame
-                    wait(0.2)
-                    fireproximityprompt(v:FindFirstChild("ProximityAttachment"):FindFirstChild("Interaction"))
-                    wait(0.2)
-                end
-                wait(0.35)
-            end
+            findItems()
+            wait(3)
         end
     else
         itemfarm = false
@@ -63,16 +76,20 @@ end)
 
 local tab3 = win:Tab("Client", "http://www.roblox.com/asset/?id=0")
 
+function unanchorplr()
+   for i,v in pairs(chr:GetDescendants()) do
+      if v:IsA("BasePart") then
+         v.Anchored = false
+      end
+   end
+end
+
 local clienttsmovement = false
 tab3:Toggle("TS Movement", "Allows you to move in TS on YOUR screen.", false, function(t)
     if t == true then
     clienttsmovement = true
     while clienttsmovement == true do game:GetService("RunService").RenderStepped:wait()
-        for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-            if v:IsA("BasePart") then
-                v.Anchored = false
-            end
-        end
+       unanchorplr()
     end
     else
         clienttsmovement = false
@@ -92,7 +109,7 @@ end)
 --tab:Textbox("Gun Power", "This textbox changes your gun power, so you can kill everyone faster and easier.", true, function(t)
 --print(t)
 --end)
---tab:Bind("Kill Bind", Enum.KeyCode.Q, function()
---print("Killed a random person!")
---end)
+tab3:Bind("UI Bind", _G.FlameBind, function(t)
+    _G.FlameBind = t
+end)
 --win:Tab("Tab 2", "http://www.roblox.com/asset/?id=6022668888")
